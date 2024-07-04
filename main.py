@@ -1,3 +1,4 @@
+# testdsdsdsd
 class Member:
     def __init__(self, name, username, password):  # 인스턴스의 정의를 해주었다.
         self.name = name
