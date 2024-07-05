@@ -76,6 +76,18 @@ def write_pwd():
     hash_input_pwd = sha256_hash.hexdigest()
     return hash_input_pwd
 
+# 특정 작성자가 작성한 게시물 제목 출력
+def display_posts_by_author(author):
+    for post in posts:
+        if post.author == author:
+            post.display()
+
+# 특정 단어가 포함된 게시물 제목 출력
+def display_posts_by_keyword(keyword):
+    for post in posts:
+        if keyword in post.content:
+            post.display()
+
 
 members = []
 posts = []
@@ -99,7 +111,7 @@ post7 = Post('제목7','내용7 파이썬',member3.username)
 post8 = Post('제목8','내용8 자바',member3.username)
 post9 = Post('제목9','내용9 html',member3.username)
 
-#
+
 # # 추가된 회원 정보를 출력
 # for member in members:
 #     member.display()
@@ -119,24 +131,40 @@ post9 = Post('제목9','내용9 html',member3.username)
 #     if "파이썬" in post.content :
 #         print(f'파이썬이 포함된 게시글의 제목: {post.title}')
 
+def menu():
+    while True:
+        print("\n메뉴를 선택하세요:")
+        print("1. 회원 추가")
+        print("2. 게시물 추가")
+        print("3. 특정 작성자(ID)의 게시물 보기")
+        print("4. 특정 단어가 포함된 게시물 보기")
+        print("5. 종료")
+        choice = input("선택: ")
 
-while True:
-    choice = input("member 생성은 1번 / post 작성은 2번 / 종료는 3번을 눌러주세요.")
-    if choice == '1':
-        create_member()
-    elif choice == '2':
-        create_post()
-    elif choice == '3':
-        break
-    else:
-        print("1,2,3중 하나만 입력하세요.")
-print("")
 
-print("member 리스트")
-for member in members:
-    member.display()
-print("")
+        if choice == '1':
+            create_member()
+        elif choice == '2':
+            create_post()
+        elif choice == '3':
+            author = input("작성자 ID를 입력하세요: ")
+            display_posts_by_author(author)
+        elif choice == '4':
+            keyword = input("검색할 단어를 입력하세요: ")
+            display_posts_by_keyword(keyword)
+        elif choice == '5':
+            print("프로그램을 종료합니다.")
+            break
+        else:
+            print("잘못된 선택입니다. 다시 시도하세요.")
 
-print("post 리스트")
-for post in posts:
-    post.display()
+        print("member 리스트")
+        for member in members:
+            member.display()
+        print("")
+
+        print("post 리스트")
+        for post in posts:
+            post.display()
+# 프로그램 시작
+menu()
