@@ -76,11 +76,13 @@ def write_pwd():
     hash_input_pwd = sha256_hash.hexdigest()
     return hash_input_pwd
 
+
 # 특정 작성자가 작성한 게시물 제목 출력
 def display_posts_by_author(author):
     for post in posts:
         if post.author == author:
             post.display()
+
 
 # 특정 단어가 포함된 게시물 제목 출력
 def display_posts_by_keyword(keyword):
@@ -94,22 +96,22 @@ posts = []
 
 # Member 클래스 객체 생성
 member1 = Member(name="이광열", username="xman1215", password="1234")
-member2 = Member('최준환','asd123',"123456")
+member2 = Member('최준환', 'asd123', "123456")
 member3 = Member(name="김남훈", username="gkgk55", password="6430")
 # member4 = create_member()
 
 # Post 클래스 객체 생성
-post1 = Post('제목1','내용1 파이썬',member1.username)
-post2 = Post('제목2','내용2 html',member1.username)
-post3 = Post('제목3','내용3 파이썬',member1.username)
+post1 = Post('제목1', '내용1 파이썬', member1.username)
+post2 = Post('제목2', '내용2 html', member1.username)
+post3 = Post('제목3', '내용3 파이썬', member1.username)
 
-post4 = Post('제목4','내용4 html',member2.username)
-post5 = Post('제목5','내용5 ',member2.username)
-post6 = Post('제목6','내용6 자바',member2.username)
+post4 = Post('제목4', '내용4 html', member2.username)
+post5 = Post('제목5', '내용5 ', member2.username)
+post6 = Post('제목6', '내용6 자바', member2.username)
 
-post7 = Post('제목7','내용7 파이썬',member3.username)
-post8 = Post('제목8','내용8 자바',member3.username)
-post9 = Post('제목9','내용9 html',member3.username)
+post7 = Post('제목7', '내용7 파이썬', member3.username)
+post8 = Post('제목8', '내용8 자바', member3.username)
+post9 = Post('제목9', '내용9 html', member3.username)
 
 
 # # 추가된 회원 정보를 출력
@@ -141,7 +143,6 @@ def menu():
         print("5. 종료")
         choice = input("선택: ")
 
-
         if choice == '1':
             create_member()
         elif choice == '2':
@@ -166,5 +167,7 @@ def menu():
         print("post 리스트")
         for post in posts:
             post.display()
+
+
 # 프로그램 시작
 menu()

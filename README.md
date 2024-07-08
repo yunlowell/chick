@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 파이썬 팀 과제설명
 
 1. **`Member`** 클래스와 **`Post`** 클래스를 정의하세요.
@@ -142,3 +143,6 @@
     print("post 리스트")   
     for post in posts:
         post.display()
+=======
+배포용 main 브랜치 입니다.
+>>>>>>> 6701963a3e56876a5b4a4608efa2106f7bfa9584
