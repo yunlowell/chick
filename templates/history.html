@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 기록</title>
+</head>
+<body>
+    <h1>게임 기록</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>플레이어 선택</th>
+            <th>컴퓨터 선택</th>
+            <th>결과</th>
+        </tr>
+        {% for result in game_results %}
+        <tr>
+            <td>{{ result.id }}</td>
+            <td>{{ result.player_choice }}</td>
+            <td>{{ result.computer_choice }}</td>
+            <td>{{ result.result }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/">게임으로 돌아가기</a>
+</body>
+</html>
