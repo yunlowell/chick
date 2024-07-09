@@ -4,37 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>가위바위보 게임</title>
+        <style>
+        body {
+            text-align: center;
+            background-color: ghostwhite;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label, select, button {
+            font-size: 1.5em;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #333333;
+        }
+
+        h2 {
+            margin: 10px 0;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .score {
+            margin: 0 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: cornflowerblue;
+            padding: 10px;
+            background-color: gainsboro;
+            border-radius: 5px;
+        }
+
+        img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+    <img src="static/rockscissorspaper.png">
     <h1>가위바위보 게임</h1>
 
     <form action="/play" method="post">
         <label for="choice">선택하세요:</label>
         <select id="choice" name="choice">
-            <option value="가위">가위</option>
-            <option value="바위">바위</option>
-            <option value="보">보</option>
+            <option value="가위">✌🏻</option>
+            <option value="바위">✊🏻</option>
+            <option value="보">🖐🏻</option>
         </select>
         <button type="submit">플레이</button>
     </form>
 
+
     {% if data %}
-        <h2>플레이어: {{ data.player_choice }}</h2>
-        <h2>컴퓨터: {{ data.computer_choice }}</h2>
+        <div class="results">
+            <h2>플레이어: {{ data.player_choice }}</h2>
+            <h2>컴퓨터: {{ data.computer_choice }}</h2>
 
-        {% if data.result == 'draw' %}
-            <h2>비겼습니다.</h2>
-        {% elif data.result == 'win' %}
-            <h2>이겼습니다.</h2>
-        {% else %}
-            <h2>졌습니다.</h2>
-        {% endif %}
+            {% if data.result == 'draw' %}
+                <h2>비겼습니다.</h2>
+            {% elif data.result == 'win' %}
+                <h2>이겼습니다.</h2>
+            {% else %}
+                <h2>졌습니다.</h2>
+            {% endif %}
 
-        <br>
-        <h2>사용자의 총 전적</h2>
-        <p>이긴 횟수: {{ data.win }}</p>
-        <p>비긴 횟수: {{ data.draw }}</p>
-        <p>진 횟수: {{ data.loss }}</p>
+            <div class="score-board">
+                <div class="score">승: {{ data.win }}</div>
+                <div class="score">무: {{ data.draw }}</div>
+                <div class="score">패: {{ data.loss }}</div>
+            </div>
+        </div>
+
     {% endif %}
 
     <br>
