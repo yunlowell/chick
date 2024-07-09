@@ -1,10 +1,9 @@
 ## Project
 Rock Scissors Paper Game
 가위바위보 게임을 웹페이지에서 즐길 수 있다.
-<br>
 
-## Development Team: Chick
-<br>
+## Development Team
+병아리(Chick)
 
 ## Pair Programing
 윤율
@@ -16,11 +15,10 @@ Rock Scissors Paper Game
 -HTML에 승/무/패 통계와 게임 기록 표시
 김영빈
 - CSS/부트스트랩을 이용하여 화면 구성
-<br>
+
 
 ## Development time
 - 2024.07.08~2024.07.09
-<br>
 
 ## Development Environment
 - Programming Language: python 3.10.14
@@ -29,6 +27,7 @@ Rock Scissors Paper Game
 - IDE: Pycharm
 - Version Control: Git, Github
 - Communication: Zep, Notion
+- 
 ### 사용하는 기술
     - Backend: Python, Flask
     - Frontend: HTML, CSS
