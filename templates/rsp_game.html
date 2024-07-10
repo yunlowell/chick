@@ -4,39 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>가위바위보 게임</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
+
+<style>
+    .table_div {
+        padding: 20px;
+    }
+
+    .rsp_button {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* 간격을 조절하는 속성 */
+    }
+
+    .rsp_button p {
+        font-size: 100px;
+        cursor: pointer;
+        margin: 0;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* 간격을 조절하는 속성 */
+    }
+
+    .score-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+    .win_lose_div{
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+</style>
+
 <body>
-    <h1>가위바위보 게임</h1>
 
-    <form action="/play" method="post">
-        <label for="choice">선택하세요:</label>
-        <select id="choice" name="choice">
-            <option value="가위">가위</option>
-            <option value="바위">바위</option>
-            <option value="보">보</option>
-        </select>
-        <button type="submit">플레이</button>
-    </form>
-
-    {% if data %}
-        <h2>플레이어: {{ data.player_choice }}</h2>
-        <h2>컴퓨터: {{ data.computer_choice }}</h2>
-
-        {% if data.result == 'draw' %}
-            <h2>비겼습니다.</h2>
-        {% elif data.result == 'win' %}
-            <h2>이겼습니다.</h2>
-        {% else %}
-            <h2>졌습니다.</h2>
-        {% endif %}
-
+<div class="px-4 py-5 my-5 text-center">
+    <!--홈페이지 메인 글귀-->
+    <h1 class="display-5 fw-bold text-body-emphasis">가위 바위 보!</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">
+            <br>
+        <h3>Game Rule</h3>
+        컴퓨터와 가위바위보를 한다.<br>
+        플레이어는 가위,바위,보 중 하나를 낸다.<br>
+        가위는 보자기를 자르고, 보자기는 바위를 감싸고, 바위는 가위로 자를 수 없다는 이유로<br>
+        가위>보자기>바위>가위의 상성 관계가 성립된다.
         <br>
+        <br>
+        <br>
+        <h3>선택하세요</h3>
+        <div class="rsp_button">
+            <form id="gameForm" action="/play" method="post">
+                <input type="hidden" id="choice" name="choice">
+                <p onclick="document.getElementById('choice').value='가위'; document.getElementById('gameForm').submit();">
+                    ✌</p>
+                <p onclick="document.getElementById('choice').value='바위'; document.getElementById('gameForm').submit();">
+                    ✊</p>
+                <p onclick="document.getElementById('choice').value='보'; document.getElementById('gameForm').submit();">
+                    🖐</p>
+            </form>
+        </div>
+        </p>
+    </div>
+
+    <!--사용자 게임 결과-->
+    <div>
+        {% if data %}
+        <div class="win_lose_div">
+            <h4>플레이어: {{ data.player_choice }}</h4>
+            <h4>컴퓨터: {{ data.computer_choice }}</h4>
+        </div>
+
+            {% if data.result == '무승부입니다.' %}
+            <h4>비겼습니다.</h4>
+            {% elif data.result == '이겼습니다.' %}
+            <h4>이겼습니다.</h4>
+            {% else %}
+            <h4>졌습니다.</h4>
+            {% endif %}
+        <br>
+
+    <!--사용자의 총 전적 출력-->
         <h2>사용자의 총 전적</h2>
-        <p>이긴 횟수: {{ data.win }}</p>
-        <p>비긴 횟수: {{ data.draw }}</p>
-        <p>진 횟수: {{ data.loss }}</p>
-    {% endif %}
+        <div class="score-list">
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">이긴 횟수</li>
+                <li class="list-group-item">{{ data.win }}</li>
+            </ul>
 
+            <ul class="list-group list-group-horizontal ">
+                <li class="list-group-item ">비긴 횟수</li>
+                <li class="list-group-item ">{{ data.draw }}</li>
+            </ul>
 
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">진 횟수</li>
+                <li class="list-group-item">{{ data.loss }}</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    <br>
+    <form action="{{ url_for('delete') }}" method="post">
+        <button type="submit" class="btn btn-dark">초기화</button>
+    </form>
+</div>
+
+<!--전적 리스트 출력-->
+<div class="table_div">
+    <table class="table">
+        <thead>
+        <tr class="table_head">
+            <th scope="col">#</th>
+            <th scope="col">컴퓨터</th>
+            <th scope="col">사용자</th>
+            <th scope="col">결과</th>
+        </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+        {% for element in data.game_result_list %}
+        <tr>
+            <th scope="row">{{ element.id }}</th>
+            <td>{{ element.computer_choice }}</td>
+            <td>{{ element.player_choice }}</td>
+            <td>{{ element.result }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
